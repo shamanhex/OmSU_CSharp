@@ -14,11 +14,26 @@ namespace Ex01
             Menu.ClearItems();
             Menu.AddItem(new MenuItemExit());
             Menu.AddItem(new MenuItemHelloWorld());
+            Menu.AddItem(new MenuItemDate());                                                    
+            Menu.AddItem(new MenuItemSafeIntReading());
 
             while (true)
             {
                 Menu.Execute();
             }
         }
+    }
+
+    struct Point
+    {
+        int X;
+        int Y;
+    }
+
+    interface IList
+    {
+        int Count { get; }
+        void AddItem();
+        void Clear();
     }
 }

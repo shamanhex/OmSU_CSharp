@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ex01.Validation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Ex01
 {
     public static class IOUtils
     {
-        public static int SafeReadInteger(string message)
+        public static int SafeReadInteger(string message, ISpecification<int> specification = null)
         {
             if (!string.IsNullOrEmpty(message))
             {
@@ -20,9 +21,41 @@ namespace Ex01
                 int iValue = 0;
                 if (Int32.TryParse(sValue, out iValue))
                 {
-                    return iValue;
+                    try
+                    {
+                        if (specification != null)
+                        {
+                            specification.Validate(iValue);
+                        }
+                        return iValue;
+                    }
+                    catch (ValidationException ex)
+                    {
+                        Console.WriteLine("ERROR: " + ex.Message);
+                    }
                 }
-                Console.WriteLine("ERROR: Incorrect format. Enter integer value...");
+                else
+                {
+                    Console.WriteLine("ERROR: Incorrect format. Enter integer value...");
+                }
+            }
+        }
+
+        public static DateTime SafeReadDate(string message)
+        {
+            if (!string.IsNullOrEmpty(message))
+            {
+                Console.WriteLine(message);
+            }
+            while (true)
+            {
+                string sValue = Console.ReadLine();
+                DateTime date;
+                if (DateTime.TryParseExact(sValue, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out date))
+                {
+                    return date;
+                }
+                Console.WriteLine("ERROR: Incorrect format. Enter correct date time...");
             }
         }
     }
