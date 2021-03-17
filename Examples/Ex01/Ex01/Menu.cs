@@ -21,6 +21,11 @@ namespace Ex01
             Menu.MenuItems.Add(menuItem);
         }
 
+        public static void AddItem(string title, MenuItemWDelegate.ExecuteHandler handler)
+        {
+            Menu.MenuItems.Add(new MenuItemWDelegate(title, handler));
+        }
+
         public static void Execute()
         {
             ShowMenu();

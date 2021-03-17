@@ -13,7 +13,7 @@ namespace Ex01
         {
             Menu.ClearItems();
             Menu.AddItem(new MenuItemExit());
-            Menu.AddItem(new MenuItemHelloWorld());
+            Menu.AddItem("Hello world!", PrintHelloWorld);
             Menu.AddItem(new MenuItemDate());                                                    
             Menu.AddItem(new MenuItemSafeIntReading());
 
@@ -22,7 +22,13 @@ namespace Ex01
                 Menu.Execute();
             }
         }
+
+        public static void PrintHelloWorld()
+        {
+            Console.WriteLine("Hello world!");
+        }
     }
+
 
     struct Point
     {

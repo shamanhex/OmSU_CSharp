@@ -50,6 +50,7 @@
     <Compile Include="MenuItems\MenuItemExit.cs" />
     <Compile Include="MenuItems\MenuItemHelloWorld.cs" />
     <Compile Include="MenuItems\MenuItemSafeIntReading.cs" />
+    <Compile Include="MenuItems\MenuItemWDelegate.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation\IsMoreThanZero.cs" />
