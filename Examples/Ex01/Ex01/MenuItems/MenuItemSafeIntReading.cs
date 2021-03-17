@@ -19,8 +19,25 @@ namespace Ex01.MenuItems
        
         public override void Execute()
         {
-            int value = IOUtils.SafeReadInteger("Enter int value:", new AndSpecification<int>(new IsNotZero(), new IsMoreThanZero()));
+            int value = IOUtils.SafeReadInteger("Enter first int value:", new IsNotZero().And(new IsMoreThanZero()));
             Console.WriteLine("Value is {0}", value);
+
+            value = IOUtils.SafeReadInteger("Enter second int value:", (int x) => 
+            {
+                if (x <= 0)
+                {
+                    throw new ValidationException("Value must be more than zero.");
+                }
+            });
+            Console.WriteLine("Value is {0}", value);
+        }
+
+        private void Validate(int value)
+        {
+            if (value <= 0)
+            {
+                throw new ValidationException("Value must be more than zero.");
+            }
         }
     }
 }

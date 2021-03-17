@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Ex01.Validation
 {
-    public class IsNotZero : ISpecification<int>
+    public class IsNotZero : Specification<int>
     {
-        public void Validate(int value)
+        public override void Validate(int value)
         {
             if (value == 0)
             {

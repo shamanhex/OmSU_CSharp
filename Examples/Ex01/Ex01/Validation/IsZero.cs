@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Ex01.Validation
 {
-    public class IsMoreThanZero : Specification<int>
+    public class IsZero : Specification<int>
     {
         public override void Validate(int value)
         {
-            if (value <= 0)
+            if (value != 0)
             {
-                throw new ValidationException(string.Format("Value {0} must be more than zero.", value));
+                throw new ValidationException(string.Format("Value {0} must be zero.", value));
             }
         }
     }

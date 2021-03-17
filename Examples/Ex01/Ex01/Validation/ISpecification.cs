@@ -11,7 +11,7 @@ namespace Ex01.Validation
         void Validate(T value);
     }
 
-    public class AndSpecification<T> : ISpecification<T>
+    public class AndSpecification<T> : Specification<T>
     {
         ISpecification<T> spec1 = null, spec2 = null;
 
@@ -21,10 +21,33 @@ namespace Ex01.Validation
             spec2 = s2;
         }
 
-        public void Validate(T value)
+        public override void Validate(T value)
         {
             spec1.Validate(value);
             spec2.Validate(value);
+        }
+    }
+
+    public class NotSpecification<T> : Specification<T>
+    {
+        ISpecification<T> spec = null;
+
+        public NotSpecification(ISpecification<T> s)
+        {
+            spec = s;
+        }
+
+        public override void Validate(T value)
+        {
+            try
+            {
+                spec.Validate(value);
+            }
+            catch (ValidationException)
+            {
+
+            }
+            throw new ValidationException("Exception was not generated.");
         }
     }
 }

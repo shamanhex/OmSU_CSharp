@@ -9,6 +9,8 @@ namespace Ex01
 {
     public static class IOUtils
     {
+        public delegate void ValidationHandler(int value);
+
         public static int SafeReadInteger(string message, ISpecification<int> specification = null)
         {
             if (!string.IsNullOrEmpty(message))
@@ -26,6 +28,39 @@ namespace Ex01
                         if (specification != null)
                         {
                             specification.Validate(iValue);
+                        }
+                        return iValue;
+                    }
+                    catch (ValidationException ex)
+                    {
+                        Console.WriteLine("ERROR: " + ex.Message);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("ERROR: Incorrect format. Enter integer value...");
+                }
+            }
+        }
+
+
+        public static int SafeReadInteger(string message, ValidationHandler validator)
+        {
+            if (!string.IsNullOrEmpty(message))
+            {
+                Console.WriteLine(message);
+            }
+            while (true)
+            {
+                string sValue = Console.ReadLine();
+                int iValue = 0;
+                if (Int32.TryParse(sValue, out iValue))
+                {
+                    try
+                    {
+                        if (validator != null)
+                        {
+                            validator(iValue);
                         }
                         return iValue;
                     }

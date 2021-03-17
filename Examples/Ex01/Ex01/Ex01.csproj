@@ -54,8 +54,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation\IsMoreThanZero.cs" />
+    <Compile Include="Validation\IsZero.cs" />
     <Compile Include="Validation\ISpecification.cs" />
     <Compile Include="Validation\IsNotZero.cs" />
+    <Compile Include="Validation\Specification.cs" />
     <Compile Include="Validation\ValidationException.cs" />
   </ItemGroup>
   <ItemGroup>
