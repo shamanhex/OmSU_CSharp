@@ -16,7 +16,6 @@ namespace Ex01.MenuItems
                 return "Safe read int >= 0";
             }
         }
-       
         public override void Execute()
         {
             int value = IOUtils.SafeReadInteger("Enter first int value:", new IsNotZero().And(new IsMoreThanZero()));
@@ -32,12 +31,9 @@ namespace Ex01.MenuItems
             Console.WriteLine("Value is {0}", value);
         }
 
-        private void Validate(int value)
+        public static int Calc(int value)
         {
-            if (value <= 0)
-            {
-                throw new ValidationException("Value must be more than zero.");
-            }
+            return value * value;
         }
     }
 }

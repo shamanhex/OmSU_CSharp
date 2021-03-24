@@ -11,6 +11,14 @@ namespace Ex01
     {
         private static List<MenuItemCore> MenuItems = new List<MenuItemCore>();
 
+        public static int ItemsCount
+        {
+            get
+            {
+                return MenuItems.Count();
+            }
+        }
+
         public static void ClearItems()
         {
             Menu.MenuItems.Clear();
