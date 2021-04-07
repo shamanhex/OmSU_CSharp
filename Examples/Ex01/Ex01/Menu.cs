@@ -36,8 +36,7 @@ namespace Ex01
 
         public static void Execute()
         {
-            ShowMenu();
-            int iMenu = IOUtils.SafeReadInteger(null) - 1;
+            int iMenu = IOUtils.SafeReadInteger("mi", null) - 1;
             if (iMenu >= 0 && iMenu < Menu.MenuItems.Count)
             {
                 Menu.MenuItems.ToArray()[iMenu].Execute();
@@ -47,7 +46,7 @@ namespace Ex01
                 Console.WriteLine("Menu item not found.");
             }
         }
-        private static void ShowMenu()
+        public static void ShowMenu()
         {
             Console.WriteLine("=== MENU ===");
 

@@ -9,7 +9,7 @@ namespace Ex01.MenuItems
 
         public override void Execute()
         {
-            DateTime date = IOUtils.SafeReadDate("Enter date:");
+            DateTime date = IOUtils.SafeReadDate("date", "Enter date:");
             Console.WriteLine("Value is {0}.{1}.{2}", date.Day, date.Month, date.Year);
         }
     }

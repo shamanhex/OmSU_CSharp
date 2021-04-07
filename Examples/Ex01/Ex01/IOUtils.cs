@@ -9,88 +9,125 @@ namespace Ex01
 {
     public static class IOUtils
     {
+        private static IDictionary<string, string> ExternalValues = null;
+        
+        public static void SetExtValues(IDictionary<string, string> values)
+        {
+            ExternalValues = values;
+        }
+
         public delegate void ValidationHandler(int value);
 
-        public static int SafeReadInteger(string message, ISpecification<int> specification = null)
+        public static int SafeReadInteger(string paramName, string message, ISpecification<int> specification = null)
         {
-            if (!string.IsNullOrEmpty(message))
+            if (ExternalValues == null && !string.IsNullOrEmpty(message))
             {
                 Console.WriteLine(message);
             }
             while (true)
             {
-                string sValue = Console.ReadLine();
-                int iValue = 0;
-                if (Int32.TryParse(sValue, out iValue))
+                string sValue = GetValue(paramName, message);                                   
+                try
                 {
-                    try
+                    int iValue = Int32.Parse(sValue);
+                    if (specification != null)                               
                     {
-                        if (specification != null)
-                        {
-                            specification.Validate(iValue);
-                        }
-                        return iValue;
+                        specification.Validate(iValue);
                     }
-                    catch (ValidationException ex)
+                    return iValue;
+                }
+                catch (Exception ex)
+                {
+                    if ((ex is ValidationException) ||
+                        (ex is OverflowException) ||
+                        (ex is FormatException))
                     {
                         Console.WriteLine("ERROR: " + ex.Message);
+                        if (ExternalValues != null)
+                        {
+                            throw new InvalidOperationException(ex.Message, ex);
+                        }
                     }
-                }
-                else
-                {
-                    Console.WriteLine("ERROR: Incorrect format. Enter integer value...");
+                    throw ex;
                 }
             }
         }
 
-
-        public static int SafeReadInteger(string message, ValidationHandler validator)
+        private static string GetValue(string paramName, string message)
         {
-            if (!string.IsNullOrEmpty(message))
+            string sValue = null;
+            if (ExternalValues == null)
+            {
+                sValue = Console.ReadLine();
+            }
+            else
+            {
+                if (!ExternalValues.TryGetValue(paramName, out sValue))
+                {
+                    throw new InvalidOperationException(string.Format("Parameter -{0} not specify.", paramName));
+                }
+            }
+            return sValue;
+        }
+
+        public static int SafeReadInteger(string paramName, string message, ValidationHandler validator)
+        {
+            if (ExternalValues == null && !string.IsNullOrEmpty(message))
             {
                 Console.WriteLine(message);
             }
             while (true)
             {
-                string sValue = Console.ReadLine();
-                int iValue = 0;
-                if (Int32.TryParse(sValue, out iValue))
+                string sValue = GetValue(paramName, message);
+                try
                 {
-                    try
+                    int iValue = Int32.Parse(sValue);
+                    if (validator != null)
                     {
-                        if (validator != null)
-                        {
-                            validator(iValue);
-                        }
-                        return iValue;
+                        validator(iValue);
                     }
-                    catch (ValidationException ex)
+                    return iValue;
+                }
+                catch (Exception ex)
+                {
+                    if ((ex is ValidationException) ||
+                        (ex is OverflowException) ||
+                        (ex is FormatException))
                     {
                         Console.WriteLine("ERROR: " + ex.Message);
+                        if (ExternalValues != null)
+                        {
+                            throw new InvalidOperationException(ex.Message, ex);
+                        }
                     }
-                }
-                else
-                {
-                    Console.WriteLine("ERROR: Incorrect format. Enter integer value...");
+                    throw ex;
                 }
             }
         }
 
-        public static DateTime SafeReadDate(string message)
+        public static DateTime SafeReadDate(string paramName, string message)
         {
-            if (!string.IsNullOrEmpty(message))
+            if (ExternalValues == null && !string.IsNullOrEmpty(message))
             {
                 Console.WriteLine(message);
             }
             while (true)
             {
-                string sValue = Console.ReadLine();
-                DateTime date;
-                if (DateTime.TryParseExact(sValue, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out date))
+                string sValue = GetValue(paramName, message);
+                try
                 {
+                    DateTime date = DateTime.ParseExact(sValue, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None);
+                   
                     return date;
                 }
-                Console.WriteLine("ERROR: Incorrect format. Enter correct date time...");
+                catch (FormatException ex)
+                {
+                    Console.WriteLine("ERROR: " + ex.Message);
+                    if (ExternalValues != null)
+                    {
+                        throw new InvalidOperationException(ex.Message, ex);
+                    }
+                }
             }
         }
     }

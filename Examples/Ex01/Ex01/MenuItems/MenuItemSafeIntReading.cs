@@ -18,10 +18,10 @@ namespace Ex01.MenuItems
         }
         public override void Execute()
         {
-            int value = IOUtils.SafeReadInteger("Enter first int value:", new IsNotZero().And(new IsMoreThanZero()));
+            int value = IOUtils.SafeReadInteger("x", "Enter first int value:", new IsNotZero().And(new IsMoreThanZero()));
             Console.WriteLine("Value is {0}", value);
 
-            value = IOUtils.SafeReadInteger("Enter second int value:", (int x) => 
+            value = IOUtils.SafeReadInteger("y", "Enter second int value:", (int x) => 
             {
                 if (x <= 0)
                 {

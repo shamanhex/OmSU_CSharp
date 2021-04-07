@@ -11,15 +11,33 @@ namespace Ex01
     {
         static void Main(string[] args)
         {
+            IDictionary<string, string> argsDic = CmdArgsParser.Parse(args);
+            IOUtils.SetExtValues(argsDic);
+
             Menu.ClearItems();
             Menu.AddItem(new MenuItemExit());
             Menu.AddItem("Hello world!", PrintHelloWorld);
             Menu.AddItem(new MenuItemDate());                                                    
             Menu.AddItem(new MenuItemSafeIntReading());
 
-            while (true)
+            if (argsDic != null)
             {
-                Menu.Execute();
+                try
+                {
+                    Menu.Execute();
+                }
+                catch (InvalidOperationException ex)
+                {
+                    Console.WriteLine("ERROR: " + ex.Message);
+                }
+            }
+            else
+            {
+                while (true)
+                {
+                    Menu.ShowMenu();
+                    Menu.Execute();
+                }
             }
         }
 

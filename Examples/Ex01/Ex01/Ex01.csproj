@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CmdArgsParser.cs" />
     <Compile Include="IOUtils.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="MenuItems\MenuItemCore.cs" />
