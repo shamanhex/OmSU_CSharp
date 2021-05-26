@@ -35,7 +35,7 @@ namespace AutoScale
             {
                 throw new InvalidOperationException("Path access denied: " + cmdLineParams.InputPath);
             }
-            
+
         }
 
         public static readonly string[] IMAGE_EXTENSIONS = new string[] { ".jpg", ".png", ".bmp" };
@@ -58,7 +58,7 @@ namespace AutoScale
 
         private static void ProcessFile(string inputPath, string outputPath, int maxWidth, int maxHeight)
         {
-            Bitmap fileImg = (Bitmap) Image.FromFile(inputPath);
+            Bitmap fileImg = (Bitmap)Image.FromFile(inputPath);
             Bitmap destImg = ImageScaler.Resize(fileImg, maxWidth, maxHeight);
             string folderPath = Path.GetDirectoryName(Path.GetFullPath(outputPath));
             if (!Directory.Exists(folderPath))

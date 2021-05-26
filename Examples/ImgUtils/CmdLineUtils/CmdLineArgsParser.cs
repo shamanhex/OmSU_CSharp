@@ -29,13 +29,20 @@ namespace CmdLineUtils
                     {
                         if (string.Compare(args[i], paramName, ignoreCase:true) == 0)
                         {
-                            if (i+1 >= args.Length)
+                            if (property.PropertyType == typeof(bool))
                             {
-                                throw new InvalidOperationException("Не указано значение для аргумента " + paramName);
+                                property.SetValue(cmdLineParams, true);
                             }
-                            string paramValueStr = args[i + 1];
-                            object paramValue = Convert.ChangeType(paramValueStr, property.PropertyType);
-                            property.SetValue(cmdLineParams, paramValue);
+                            else
+                            {
+                                if (i + 1 >= args.Length)
+                                {
+                                    throw new InvalidOperationException("Не указано значение для аргумента " + paramName);
+                                }
+                                string paramValueStr = args[i + 1];
+                                object paramValue = Convert.ChangeType(paramValueStr, property.PropertyType);
+                                property.SetValue(cmdLineParams, paramValue);
+                            }
                             break;
                         }
                     }

@@ -38,7 +38,7 @@ namespace ImgUtils
             }
 
             return destImg;
-        }
+        } 
 
         public static double GetResizeCoeff(int width, int height, int maxWidth, int maxHeight)
         {
