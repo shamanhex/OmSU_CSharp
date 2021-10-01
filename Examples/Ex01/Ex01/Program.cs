@@ -20,6 +20,7 @@ namespace Ex01
             Menu.AddItem(new MenuItemDate());                                                    
             Menu.AddItem(new MenuItemSafeIntReading());
 
+
             if (argsDic != null)
             {
                 try
