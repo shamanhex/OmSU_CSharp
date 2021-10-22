@@ -8,8 +8,9 @@ namespace Ex03
 {
     public class MyList<T>
     {
-        public delegate void AddHandler(object sender, T item);
-        public event AddHandler OnAdd;
+        public delegate void ItemHandler(object sender, T item);
+        public event ItemHandler OnAdd;
+        public event ItemHandler OnDelete;
 
         public void FireAdd(T item)
         {

@@ -7,58 +7,49 @@ using Ex03.Specification;
 
 namespace Ex03
 {
+    class A
+    {
+        public void PrintA1()
+        {
+            Console.WriteLine("A1");
+        }
+
+        public virtual void PrintA2()
+        {
+            Console.WriteLine("A2");
+        }
+    }
+
+    class B : A
+    {
+        public new void PrintA1()
+        {
+            Console.WriteLine("B1");
+        }
+        public override void PrintA2()
+        {
+            Console.WriteLine("B2");
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
-            try
-            {
-                SpecificationCore<string> IsNullString = new IsNullSpecification<string>();
-                SpecificationCore<string> IsNotEmpty = new IsNotEmptySpecification();
-                SpecificationCore<string> spec = IsNullString.And(IsNotEmpty);
-            }
-            catch (ValidationException ex)
-            {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("");
-            }
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            dic.Add("Россия", "Москва");
 
-            MyList<string> StringList = new MyList<string>();
-            StringList.OnAdd += (sender, item) =>
-            {
-                Console.WriteLine(item + " added to list. " + StringList.Count());
-            };
-            StringList.Add("s1");
-            StringList.Add("s2");
-                                                          
+            B b = new B();
+            A a = (A)b;
 
-            double x = 10;
-            double y = 10;
+            b.PrintA1();
+            b.PrintA2();
 
-            DateTime d1 = new DateTime(2021, 01, 31), d2;
-            Console.WriteLine(d1.AddMonths(1));
+            a.PrintA1();
+            a.PrintA2();
 
-            double z = (double)-10 / (double)0;
-            Console.WriteLine("{0}", z);
-
-            if (Math.Abs(x - y) < Double.Epsilon)
-            {
-                //Console.Write("{0}");
-            }
             Console.ReadLine();
         }
 
-        public static void IsNull(object obj)
-        {
-            if (obj != null)
-            {
-                throw new ValidationException("Object is not null");
-            }
-        }
-
-        public static void handler(object sender, string item)
-        {
-            Console.WriteLine(item + " add to list");
-        }
     }
 }
