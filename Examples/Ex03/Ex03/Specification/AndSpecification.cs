@@ -19,8 +19,12 @@ namespace Ex03.Specification
 
         public override void IsValid(T value)
         {
-            spec1.IsValid(value);
-            spec2.IsValid(value);
+            spec1?.IsValid(value);
+
+            if (spec2 != null)
+            {
+                spec2.IsValid(value);
+            }
         }
     }
 }

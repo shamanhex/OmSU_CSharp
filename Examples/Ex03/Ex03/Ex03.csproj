@@ -50,6 +50,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Specification\AndSpecification.cs" />
+    <Compile Include="Specification\IsIPSpecification.cs" />
     <Compile Include="Specification\IsNotEmptySpecification.cs" />
     <Compile Include="Specification\IsNullSpecification.cs" />
     <Compile Include="Specification\ISpecification.cs" />

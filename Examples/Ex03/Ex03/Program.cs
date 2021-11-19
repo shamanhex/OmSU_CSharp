@@ -34,6 +34,8 @@ namespace Ex03
 
     class Program
     {
+        double d = 3.0d;
+
         static void Main(string[] args)
         {
             Dictionary<string, string> dic = new Dictionary<string, string>();
