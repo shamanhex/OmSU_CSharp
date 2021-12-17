@@ -24,6 +24,14 @@ namespace Ex04.Serializing
         public int TimeOut;
         public double Devider;
         public DateTime ExpirationDate;
+
+        public string ConnectionString
+        {
+            get
+            {
+                return string.Format("server={0};database={1};", this.DataBaseServerAddress, this.DataBaseName);
+            }
+        }
     }
 }
 

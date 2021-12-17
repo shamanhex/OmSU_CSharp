@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using Ex04.Reflection;
 
 namespace Ex04
 {
@@ -81,14 +82,24 @@ namespace Ex04
             Console.WriteLine(" {0} saved", jsonConfigPath);
 
             Console.WriteLine("============================ Load using Serializer ============================");
+            Config config = null;
             string jsonConfigFile = Path.Combine(configFolder, "config.json");
             using (StreamReader reader = new StreamReader(jsonConfigFile))
             using (JsonReader jsonReader = new JsonTextReader(reader))
             {
-                Config config = jsonSerializer.Deserialize<Config>(jsonReader);
+                config = jsonSerializer.Deserialize<Config>(jsonReader);
                 Console.WriteLine("Load {0}", jsonConfigFile);
                 Console.WriteLine("config.DataBaseServerAddress = {0}", config.DataBaseServerAddress);
             }
+
+            Console.WriteLine("============================ Reflection: show object ============================");
+            ReflectionUtil.ShowObjectStruct(new Point<double>());
+
+            Point<int> point = new Point<int>();
+            ReflectionUtil.SetFieldValue(point, "X", "10");
+            ReflectionUtil.ShowObjectStruct(point);
+
+            Console.ReadLine();
         }
     }
 }

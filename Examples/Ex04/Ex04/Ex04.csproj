@@ -55,6 +55,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Reflection\Point.cs" />
+    <Compile Include="Reflection\ReflectionUtil.cs" />
     <Compile Include="Serializing\Config.cs" />
     <Compile Include="Serializing\MyXmlSerializer.cs" />
     <Compile Include="XMLUtil.cs" />
@@ -70,5 +72,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
